@@ -1,0 +1,81 @@
+import { AppError, usePaginate, useExclude } from "@hefestos/core";
+import { {{ name | pascalCase | singularize }} } from "app/database";
+import type { SchemaType } from "app/validations/{{ name | pascalCase | singularize }}/Create";
+
+export class {{ name | pascalCase | singularize }}Service {
+  static async List(page = 1, filter = "") {
+    const filterDecoded = decodeURIComponent(filter);
+
+    const perPage = 10;
+    const skip = (page - 1) * perPage;
+    const totalData = await {{ name | pascalCase | singularize }}.count();
+
+    const query = await {{ name | pascalCase | singularize }}.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+      // where: {},
+      take: perPage,
+      skip,
+    });
+
+    const response = usePaginate({
+      data: query,
+      totalData,
+      page,
+      perPage,
+    });
+
+    return response;
+  }
+
+  static async Show(id: string) {
+    const query = await {{ name | pascalCase | singularize }}.findFirst({ where: { id } });
+
+    if (!query) throw AppError.E_NOT_FOUND();
+
+    const result = useExclude.fromObject(query, [
+      "createdAt",
+      "updatedAt",
+    ]);
+
+    return result;
+  }
+
+  static async Create(data: SchemaType) {
+    const query = await {{ name | pascalCase | singularize }}.create({ data });
+
+    if (!query) throw AppError.E_GENERIC_ERROR("Error trying to save data.");
+
+    const result = useExclude.fromObject(query, [
+      "createdAt",
+      "updatedAt",
+    ]);
+
+    return result;
+  }
+
+  static async Update(id: string, data: SchemaType) {
+    await {{ name | pascalCase | singularize }}Service.Show(id);
+
+    const result = await {{ name | pascalCase | singularize }}.update({ where: { id }, data });
+
+    if (!result) throw AppError.E_GENERIC_ERROR("Error trying to save data.");
+
+    return result;
+  }
+
+  static async Delete(id: string) {
+    await {{ name | pascalCase | singularize }}Service.Show(id);
+
+    const query = await {{ name | pascalCase | singularize }}.delete({
+      where: { id },
+    });
+
+    if (!query) throw AppError.E_GENERIC_ERROR("Error trying to delete data.");
+
+    return true;
+  }
+}

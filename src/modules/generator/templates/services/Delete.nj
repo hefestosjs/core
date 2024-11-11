@@ -1,0 +1,15 @@
+import { AppError } from "@hefestos/core";
+import { {{ name | pascalCase | singularize }} } from "app/database";
+import { {{ name | pascalCase | singularize }}Service } from ".";
+
+export default async function Delete(id: string) {
+  await {{ name | pascalCase | singularize }}Service.Show(id);
+
+  const query = await {{ name | pascalCase | singularize }}.delete({
+    where: { id },
+  });
+
+  if (!query) throw AppError.E_GENERIC_ERROR("Error trying to delete data.");
+
+  return true;
+}

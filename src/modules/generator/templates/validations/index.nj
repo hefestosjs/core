@@ -1,0 +1,9 @@
+import { CreateValidation } from "./Create";
+import { UpdateValidation } from "./Update";
+
+const {{ setName | pascalCase | singularize }}Validator = {
+  Create: CreateValidation,
+  Update: UpdateValidation,
+};
+
+export default {{ setName | pascalCase | singularize }}Validator;

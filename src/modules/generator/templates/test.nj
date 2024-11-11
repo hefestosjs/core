@@ -1,0 +1,22 @@
+import { afterEach, describe, expect, it } from "bun:test";
+import { Supertest } from "@hefestos/core";
+
+describe("{{ name | pascalCase }} test", () => {
+  it("describe what your test is expecting", async () => {
+    // Use Supertest to test your API routes.
+    // const { body, status } = await Supertest.get("/path");
+
+    // expect(status).toBe(200);
+    // expect(body).toEqual(
+    //   expect.objectContaining({
+    //     status: "OK",
+    //     error: null,
+    //     result: expect.objectContaining({}),
+    //   })
+    // );
+  });
+
+  afterEach(async () => {
+    // Delete the created data
+  });
+});

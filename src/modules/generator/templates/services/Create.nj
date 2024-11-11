@@ -1,0 +1,16 @@
+import { AppError, useExclude } from "@hefestos/core";
+import { {{ name | pascalCase | singularize }} } from "app/database";
+import type { SchemaType } from "app/validations/{{ name | pascalCase | singularize }}/Create";
+
+export default async function Create(data: SchemaType) {
+  const query = await {{ name | pascalCase | singularize }}.create({ data });
+
+  if (!query) throw AppError.E_GENERIC_ERROR("Error trying to save data.");
+
+  const result = useExclude.fromObject(query, [
+    "createdAt",
+    "updatedAt",
+  ]);
+
+  return result;
+}

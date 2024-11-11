@@ -1,0 +1,13 @@
+import { Factory } from "@hefestos/core";
+import { {{ name | pascalCase | singularize }} } from "..";
+
+export default new Factory().define({{ name | pascalCase | singularize }}, (faker) => {
+  return {
+    /**
+     * Here you can add the field as a property, followed by the fakerjs generator.
+     *
+     * Example:
+     * name: faker.person.fullName(),
+     */
+  };
+});

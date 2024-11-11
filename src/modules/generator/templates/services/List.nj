@@ -1,0 +1,30 @@
+import { usePaginate } from "@hefestos/core";
+import { {{ name | pascalCase | singularize }} } from "app/database";
+
+export default async function List(page = 1, filter = "") {
+  const filterDecoded = decodeURIComponent(filter);
+
+  const perPage = 10;
+  const skip = (page - 1) * perPage;
+  const totalData = await {{ name | pascalCase | singularize }}.count();
+
+    const query = await {{ name | pascalCase | singularize }}.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+      // where: {},
+      take: perPage,
+      skip,
+    });
+
+    const response = usePaginate({
+      data: query,
+      totalData,
+      page,
+      perPage,
+    });
+
+    return response;
+}

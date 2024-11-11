@@ -1,0 +1,7 @@
+import { createSchedule } from "@hefestos/core";
+
+function Task() {}
+
+export const {{ name | pascalCase }} = createSchedule("* * * * *", Task, {
+  scheduled: false,
+});

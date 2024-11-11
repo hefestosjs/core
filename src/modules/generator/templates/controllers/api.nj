@@ -1,0 +1,66 @@
+import type { Request, Response } from "@hefestos/core";
+import ApiResponse from "app/utils/ApiResponse";
+import { {{ name | pascalCase | singularize }}Service } from "app/services/{{ name | pascalCase | singularize }}";
+import {{ name | pascalCase | singularize }}Validator from "app/validations/{{ name | pascalCase | singularize }}";
+
+export default class {{ name | pascalCase | singularize }}Controller {
+  static async index(request: Request, response: Response) {
+    try {
+      const { page, filter } = request.query as {
+        page?: number;
+        filter?: string;
+      };
+      
+      const data = await {{ name | pascalCase | singularize }}Service.List(page, filter);
+
+      return ApiResponse.pagination(response, data);
+    } catch (error: any) {
+      return ApiResponse.error(response, error);
+    }
+  }
+
+  static async show(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+      const data = await {{ name | pascalCase | singularize }}Service.Show(id);
+
+      return ApiResponse.success(response, data);
+    } catch (error: any) {
+      return ApiResponse.error(response, error);
+    }
+  }
+
+  static async store(request: Request, response: Response) {
+    try {
+      await {{ name | pascalCase | singularize }}Validator.Create(request.body);
+      const data = await {{ name | pascalCase | singularize }}Service.Create(request.body);
+
+      return ApiResponse.success(response, data);
+    } catch (error: any) {
+      return ApiResponse.error(response, error);
+    }
+  }
+
+  static async update(request: Request, response: Response) {
+    try {
+      await {{ name | pascalCase | singularize }}Validator.Update(request.body);
+      const { id } = request.params;
+      const data = await {{ name | pascalCase | singularize }}Service.Update(id, request.body);
+
+      return ApiResponse.success(response, data);
+    } catch (error: any) {
+      return ApiResponse.error(response, error);
+    }
+  }
+
+  static async destroy(request: Request, response: Response) {
+    try {
+      const { id } = request.params;
+      const data = await {{ name | pascalCase | singularize }}Service.Delete(id);
+
+      return ApiResponse.success(response, data);
+    } catch (error: any) {
+      return ApiResponse.error(response, error);
+    }
+  }
+}

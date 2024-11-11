@@ -1,0 +1,14 @@
+import { AppError } from "@hefestos/core";
+import { {{ name | pascalCase | singularize }} } from "app/database";
+import { {{ name | pascalCase | singularize }}Service } from ".";
+import type { SchemaType } from "app/validations/{{ name | pascalCase | singularize }}/Update";
+
+export default async function Update(id: string, data: SchemaType) {
+  await {{ name | pascalCase | singularize }}Service.Show(id);
+
+  const result = await {{ name | pascalCase | singularize }}.update({ where: { id }, data });
+
+  if (!result) throw AppError.E_GENERIC_ERROR("Error trying to save data.");
+
+  return result;
+}

@@ -1,0 +1,43 @@
+import type { Next, Request, Response } from "@hefestos/core";
+import { redisClient } from "@hefestos/core";
+import AuthConfig from "app/config/auth";
+import PerformanceConfig from "app/config/performance";
+import jwt from "jsonwebtoken";
+
+export type TokenType = {
+	request: Request;
+	response: Response;
+	next?: Next;
+	userId?: string;
+};
+
+export const Logout = async (props: TokenType) => {
+	const { request, response } = props;
+	const { useRedis, secret } = AuthConfig.strategy.token;
+
+	const token = request.headers.authorization?.split(" ")[1];
+
+	if (!token) {
+		return response.status(401).json({ message: "Access token not provided" });
+	}
+
+	jwt.verify(token, secret, async (err: any, decoded: any) => {
+		if (err) {
+			return response.status(401).json({ message: "Invalid access token" });
+		}
+
+		if (useRedis && PerformanceConfig.redis) {
+			const accessToken = await redisClient.get(decoded.userId);
+
+			if (!accessToken || accessToken !== token) {
+				return response.status(401).json({ message: "Access token not valid" });
+			}
+
+			return await redisClient.del(decoded.userId);
+		} else {
+			/**
+			 * Add your logic
+			 */
+		}
+	});
+};

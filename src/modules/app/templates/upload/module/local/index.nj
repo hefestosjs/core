@@ -1,0 +1,7 @@
+import multer from "multer";
+import type { LocalParamsType } from "..";
+import { storage } from "./storage";
+
+export const local = (params?: LocalParamsType) => {
+	return multer({ storage: storage(params) });
+};

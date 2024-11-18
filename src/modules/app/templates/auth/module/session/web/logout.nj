@@ -1,0 +1,24 @@
+import type { SessionTypes } from "@hefestos/auth";
+import type { Next, Request, Response } from "@hefestos/core";
+
+export type SessionType = {
+  request: Request;
+  response: Response;
+  next: Next;
+  user?: any;
+  session?: SessionTypes;
+  redirectPath: string;
+};
+
+export const Logout = (props: SessionType) => {
+  const { request, response, next, session, redirectPath } = props;
+
+  if (JSON.stringify(request.session) !== JSON.stringify(session)) {
+    throw new Error("Session does not match.");
+  }
+
+  request.session.user = null;
+  request.session.destroy((err) => err && next(err));
+
+  return response.redirect(redirectPath);
+};

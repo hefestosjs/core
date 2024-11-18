@@ -1,0 +1,3 @@
+import { uploadTo } from "modules/upload";
+
+export const upload = uploadTo.local;

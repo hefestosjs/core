@@ -1,0 +1,4 @@
+import { Login } from "./login";
+import { Logout } from "./logout";
+
+export const useAuth = { login: Login, logout: Logout };

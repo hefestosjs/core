@@ -1,0 +1,22 @@
+import type { Next, Request, Response } from "@hefestos/core";
+
+export type SessionType = {
+  request: Request;
+  response: Response;
+  next: Next;
+  user?: any;
+  redirectPath: string;
+};
+
+export const Login = (props: SessionType) => {
+  const { request, response, next, user, redirectPath } = props;
+
+  request.session.regenerate((err) => {
+    if (err) next(err);
+
+    request.session.user = user;
+    request.session.save((err) => err && next(err));
+
+    response.status(200).redirect(redirectPath);
+  });
+};

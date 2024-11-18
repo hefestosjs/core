@@ -1,0 +1,37 @@
+import type { Next, Request, Response } from "@hefestos/core";
+import { redisClient } from "@hefestos/core";
+import AuthConfig from "app/config/auth";
+import PerformanceConfig from "app/config/performance";
+import jwt from "jsonwebtoken";
+
+export type TokenType = {
+	request: Request;
+	response: Response;
+	next?: Next;
+	userId?: string;
+};
+
+export const Login = async (props: TokenType) => {
+	const { userId } = props;
+	const { secret, expiresIn, useRedis } = AuthConfig.strategy.token;
+
+	const token = jwt.sign({ userId }, secret, { expiresIn });
+
+	// Store token in Redis
+	if (useRedis && PerformanceConfig.redis) {
+		try {
+			await redisClient.set(String(userId), token);
+		} catch (error) {
+			console.log(error);
+		}
+	} else {
+		/**
+		 * Add your logic
+		 */
+	}
+
+	return {
+		userId,
+		token,
+	};
+};

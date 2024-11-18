@@ -1,0 +1,17 @@
+import { local } from "./local";
+import { S3 } from "./s3";
+
+export type LocalParamsType = {
+	folder?: string;
+};
+
+export type S3ParamsType = {
+	folder?: string;
+	fileName: string;
+	file: Express.Multer.File;
+};
+
+export const uploadTo = {
+	local: (params: LocalParamsType) => local(params),
+	s3: (params: S3ParamsType) => S3.upload(params),
+};

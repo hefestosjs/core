@@ -32,6 +32,7 @@ export const run = (script: string, args: string[]) => {
 
 		// Others
 		generate: () => execCommand("clear && bun start/forge.ts"),
+		module: () => execCommand("clear && bun start/module.ts"),
 		studio: () => execCommand("prisma studio"),
 		seed: () => execCommand("prisma db seed"),
 	};

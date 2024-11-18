@@ -1,0 +1,25 @@
+import type { Next, Request, Response } from "@hefestos/core";
+
+export type SessionType = {
+  request: Request;
+  response: Response;
+  next?: Next;
+  user?: any;
+};
+
+export const Login = (props: SessionType) => {
+  const { request, user } = props;
+
+  return new Promise((resolve, reject) => {
+    request.session.regenerate((err) => {
+      if (err) reject(err);
+
+      request.session.user = user;
+      request.session.save((err) => {
+        if (err) return reject(err);
+
+        resolve(request.session);
+      });
+    });
+  });
+};

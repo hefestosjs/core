@@ -1,0 +1,9 @@
+import DeleteObject from "./deleteObject";
+import PutObject from "./putObject";
+import { upload } from "./upload";
+
+export const S3 = {
+  put: PutObject,
+  delete: DeleteObject,
+  upload,
+};

@@ -4,9 +4,6 @@
 	"main": "src/index.ts",
 	"type": "module",
 	"preferGlobal": true,
-	"scripts": {
-		"dev": "bun src/index.ts --watch"
-	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@faker-js/faker": "^9.2.0",

@@ -28,9 +28,3 @@ export const useCache = {
 
 	// list all: async ()
 };
-
-export default function Cache() {
-	if (performance.cache.active) {
-		redisClient.on("error", (error) => console.log(`Redis Error: ${error}`));
-	}
-}

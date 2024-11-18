@@ -10,9 +10,11 @@ if (performance.redis && !redisClient.isOpen) {
 	redisClient.connect().then(
 		() => {
 			console.log("Connected to Redis");
+		},
+		(error) => {
+			console.log(error);
 			redisClient.flushAll().then(() => console.log("Redis cache clean"));
 		},
-		(error) => console.log(error),
 	);
 
 	process.on("exit", async () => {

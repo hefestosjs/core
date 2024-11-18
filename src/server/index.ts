@@ -1,36 +1,36 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import methodOverride from "method-override";
+import { getPath } from "src/paths";
+
 import Assets from "src/modules/assets";
+import Authentication from "src/modules/auth";
+import Cache from "src/modules/cache";
+import Compression from "src/modules/compression";
+import Logger from "src/modules/logger";
 import MethodOverride from "src/modules/methodOverride";
 import Views from "src/modules/views";
-import { getPath } from "src/paths";
 
 export const APP = express();
 export const PORT = Number(process.env.PORT) || 3000;
 export const MAX_PORT = 3099;
 export const middleware = { register: APP.use };
 
-/**
- * Modules
- */
+Logger(APP);
 Views(APP);
 Assets(APP);
+Compression(APP);
+Cache();
+Authentication();
 
-/**
- * Server
- */
 APP.use(helmet());
 APP.use(helmet.contentSecurityPolicy(getPath.config.security));
 APP.use(cors(getPath.config.cors));
 APP.use(express.json());
-
-if (getPath.config.auth) {
-	// APP.use(cookieParser(process.env.COOKIE_SECRET));
-}
-
+APP.use(cookieParser(process.env.COOKIE_SECRET || "secret"));
 APP.use(express.urlencoded({ extended: true }));
 APP.use(methodOverride(MethodOverride));
 APP.use("/", getPath.routes());
-APP.use((req, res, next) => res.status(404).render("404"));
+APP.use((req, res) => res.status(404).render("404"));

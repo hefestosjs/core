@@ -1,4 +1,8 @@
-import type { PerformanceInterface } from "./config/performance";
+import type {
+	AuthConfig,
+	LoggerInterface,
+	PerformanceInterface,
+} from "./config";
 import type {
 	GeneratorActionWithFolder,
 	GeneratorActionWithoutFolder,
@@ -10,4 +14,6 @@ export type {
 	ContentSecurityPolicy,
 	GeneratorActionWithFolder,
 	GeneratorActionWithoutFolder,
+	AuthConfig,
+	LoggerInterface,
 };

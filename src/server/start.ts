@@ -1,3 +1,4 @@
+import { getPath } from "src/paths";
 import { APP, PORT } from ".";
 import TaskManager from "../modules/tasks";
 import { executeOperations } from "./boot";
@@ -13,7 +14,9 @@ export const startServer = (port: number = PORT) => {
 			console.log(`Server is running in ${address}`);
 		});
 
-		gracefulShutdown(server);
+		if (getPath.config.security.gracefulShutdown) {
+			gracefulShutdown(server);
+		}
 	});
 
 	TaskManager();

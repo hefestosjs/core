@@ -7,4 +7,5 @@ type HelmetSecurityPolicy = Exclude<
 
 export interface ContentSecurityPolicy extends HelmetSecurityPolicy {
 	ssl: boolean;
+	gracefulShutdown: boolean;
 }

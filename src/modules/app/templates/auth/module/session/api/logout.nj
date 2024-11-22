@@ -1,5 +1,4 @@
-import type { SessionTypes } from "@hefestos/auth";
-import type { Next, Request, Response } from "@hefestos/core";
+import type { Next, Request, Response, SessionTypes } from "@hefestos/core";
 
 export type SessionType = {
   request: Request;

@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import { join } from "node:path";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
@@ -33,4 +35,7 @@ APP.use(cookieParser(process.env.COOKIE_SECRET || "secret"));
 APP.use(express.urlencoded({ extended: true }));
 APP.use(methodOverride(MethodOverride));
 APP.use("/", getPath.routes());
-APP.use((req, res) => res.status(404).render("404"));
+
+if (fs.existsSync(join(getPath.resources.pages, "404.nj"))) {
+	APP.use((req, res) => res.status(404).render("404"));
+}

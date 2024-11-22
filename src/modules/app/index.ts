@@ -8,6 +8,7 @@ export const Module = async () => {
 			auth: handlers.auth,
 			mailer: handlers.mailer,
 			upload: handlers.upload,
+			pages: handlers.pages,
 		};
 
 		if (!Object.keys(generators).includes(option)) {

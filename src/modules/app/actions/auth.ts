@@ -35,7 +35,7 @@ export const auth = async ({ engine, choice }: GenerateModuleAction) => {
 	const outputs = {
 		config: join(getPath.app.config, "auth.ts"),
 		middleware: join(getPath.app.middlewares, "auth.ts"),
-		types: join(process.cwd(), "session.d.ts"),
+		types: join(process.cwd(), "@types/session.d.ts"),
 		module: {
 			session: {
 				api: {
@@ -117,15 +117,21 @@ export const auth = async ({ engine, choice }: GenerateModuleAction) => {
 			outputs.module.token.logout,
 			templates.module.token.logout,
 		);
+	}
 
+	// Install dependencies
+	await Promise.all([Bun.$`bun add uuid`]);
+
+	if (choice === "web" || choice === "api") {
+		await Promise.all([Bun.$`bun add -D @types/express-session`]);
+	}
+
+	if (choice === "token" || choice === "api") {
 		await Promise.all([
 			Bun.$`bun add jsonwebtoken`,
 			Bun.$`bun add -D @types/jsonwebtoken`,
 		]);
 	}
-
-	// Install dependencies
-	await Promise.all([Bun.$`bun add uuid`]);
 
 	// Generated message
 	const warn = chalk.hex("#FFA500").bold;

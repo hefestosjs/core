@@ -24,6 +24,7 @@ export const mailer = async (engine: nunjucks.Environment) => {
 
 	// Create directory if does not exists
 	fs.mkdirSync(join(process.cwd(), "modules/mailer/"), { recursive: true });
+	fs.mkdirSync(join(process.cwd(), "app/resources/mails"), { recursive: true });
 
 	// Create files
 	fs.writeFileSync(outputs.config, templates.config);

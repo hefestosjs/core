@@ -5,11 +5,12 @@ import nunjucks from "nunjucks";
 export default function Views(APP: Express) {
 	const resources = join(process.cwd(), "app/resources");
 	const pages = join(process.cwd(), "app/resources/pages");
+	const mails = join(process.cwd(), "app/resources/mails");
 
 	APP.engine("nj", nunjucks.render);
 	APP.set("view engine", "nj");
 
-	nunjucks.configure([resources, pages], {
+	nunjucks.configure([resources, pages, mails], {
 		autoescape: true,
 		watch: true,
 		express: APP,

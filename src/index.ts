@@ -5,6 +5,7 @@ import {
 	Supertest,
 	createSchedule,
 	redisClient,
+	renderHtml,
 } from "./modules";
 import type { ScheduledTask } from "./modules";
 
@@ -27,6 +28,7 @@ import type {
 	RequestInterface,
 	ResponseInterface,
 } from "./interfaces/router";
+
 import { bootOperations, executeOperations } from "./server/boot";
 
 // Server Functions
@@ -45,7 +47,7 @@ export {
 };
 
 // Utils
-export { useRequest, useCache, usePaginate, useExclude, getPath };
+export { useRequest, useCache, usePaginate, useExclude, getPath, renderHtml };
 
 // Interfaces
 export type {

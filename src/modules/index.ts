@@ -4,6 +4,7 @@ import { redisClient } from "./redis";
 import { Supertest } from "./supertest";
 import { createSchedule } from "./tasks";
 import type { ScheduledTask } from "./tasks";
+import { renderHtml } from "./views";
 
-export { redisClient, Factory, File, Supertest, createSchedule };
+export { redisClient, Factory, File, Supertest, createSchedule, renderHtml };
 export type { ScheduledTask };

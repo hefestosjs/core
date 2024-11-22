@@ -3,6 +3,7 @@ import type {
 	LoggerInterface,
 	PerformanceInterface,
 } from "./config";
+import type { Session } from "./express-session";
 import type {
 	GeneratorActionWithFolder,
 	GeneratorActionWithoutFolder,
@@ -16,4 +17,5 @@ export type {
 	GeneratorActionWithoutFolder,
 	AuthConfig,
 	LoggerInterface,
+	Session as SessionTypes,
 };

@@ -20,6 +20,7 @@ import type {
 	ContentSecurityPolicy,
 	LoggerInterface,
 	PerformanceInterface,
+	SessionTypes,
 } from "./interfaces";
 import type {
 	NextInterface,
@@ -54,6 +55,7 @@ export type {
 	ScheduledTask,
 	AuthConfig,
 	LoggerInterface,
+	SessionTypes,
 };
 
 // Server Interfaces

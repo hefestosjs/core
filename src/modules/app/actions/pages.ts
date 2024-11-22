@@ -45,6 +45,16 @@ export const pages = async () => {
 	fs.writeFileSync(outputs.tailwindConfig, templatesContent.tailwindConfig);
 	fs.writeFileSync(outputs.tailwindCss, templatesContent.tailwindCss);
 
+	// Add a new script in package.json
+	const packageJsonPath = join(process.cwd(), "package.json");
+	const packageJsonFile = fs.readFileSync(packageJsonPath, "utf8");
+	const packageJson = JSON.parse(packageJsonFile);
+
+	if (!packageJson.scripts) packageJson.scripts = {};
+	packageJson.scripts.mw = "bun start/run.ts mw";
+
+	fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+
 	// Generated message
 	const warn = chalk.hex("#FFA500").bold;
 	const message = `The file has been generated at ${warn("app/resources/pages")}.`;

@@ -8,27 +8,42 @@ export const pages = async () => {
 		home: join(__dirname, "../templates/pages", "home.nj"),
 		layout: join(__dirname, "../templates/pages", "layout.nj"),
 		notFound: join(__dirname, "../templates/pages", "404.nj"),
+		tailwindConfig: join(__dirname, "../templates/pages", "tailwind.config.nj"),
+		tailwindCss: join(__dirname, "../templates/pages", "tailwind.css.nj"),
 	};
 
 	const templatesContent = {
 		home: fs.readFileSync(templatesPath.home, "utf-8"),
 		layout: fs.readFileSync(templatesPath.layout, "utf-8"),
 		notFound: fs.readFileSync(templatesPath.notFound, "utf-8"),
+		tailwindConfig: fs.readFileSync(templatesPath.tailwindConfig, "utf-8"),
+		tailwindCss: fs.readFileSync(templatesPath.tailwindCss, "utf-8"),
 	};
 
 	const outputs = {
 		home: join(getPath.resources.pages, "home.nj"),
 		layout: join(getPath.resources.default, "default.nj"),
 		notFound: join(getPath.resources.pages, "404.nj"),
+		tailwindConfig: join(process.cwd(), "tailwind.config.js"),
+		tailwindCss: join(process.cwd(), "public/css/tailwind.css"),
 	};
 
 	// Create directory if does not exists
 	fs.mkdirSync(join(process.cwd(), "app/resources/pages"), { recursive: true });
+	fs.mkdirSync(join(process.cwd(), "public/css"), { recursive: true });
+
+	// Install dependencies
+	await Promise.all([
+		Bun.$`bun add autoprefixer`,
+		Bun.$`bun add -D tailwindcss`,
+	]);
 
 	// Create files
 	fs.writeFileSync(outputs.home, templatesContent.home);
 	fs.writeFileSync(outputs.layout, templatesContent.layout);
 	fs.writeFileSync(outputs.notFound, templatesContent.notFound);
+	fs.writeFileSync(outputs.tailwindConfig, templatesContent.tailwindConfig);
+	fs.writeFileSync(outputs.tailwindCss, templatesContent.tailwindCss);
 
 	// Generated message
 	const warn = chalk.hex("#FFA500").bold;

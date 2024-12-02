@@ -21,5 +21,5 @@ const excludeFromList = <ModelType extends Model>(
 
 export const useExclude = {
 	fromObject: exclude,
-	fromList: exclude,
+	fromList: excludeFromList,
 };

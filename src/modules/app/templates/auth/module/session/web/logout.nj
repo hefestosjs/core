@@ -5,7 +5,6 @@ export type SessionType = {
   response: Response;
   next?: Next;
   session?: SessionTypes;
-  user?: any;
   redirectPath?: string;
 };
 

@@ -13,7 +13,7 @@ const controller = async (engine: nunjucks.Environment) => {
 	nameState.setName(name);
 
 	const selected = await select({
-		message: "Select the contorller type",
+		message: "Select the controller type",
 		choices: [
 			{
 				name: "API Only",

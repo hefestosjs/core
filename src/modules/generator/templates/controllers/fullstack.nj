@@ -32,7 +32,7 @@ export default class {{ name | pascalCase | singularize }}Controller {
 
   static async store(request: Request, response: Response) {
     try {
-      await {{pascalCase (pluralize name)}}Validator.Create(request.body);
+      await {{ name | pascalCase | pluralize }}Validator.Create(request.body);
       const data = await {{ name | pascalCase | singularize }}Service.Create(request.body);
 
       return ApiResponse.success(response, data, "/{{ name | pluralize }}");
@@ -54,7 +54,7 @@ export default class {{ name | pascalCase | singularize }}Controller {
 
   static async update(request: Request, response: Response) {
     try {
-      await {{pascalCase (pluralize name)}}Validator.Update(request.body);
+      await {{ name | pascalCase | pluralize }}Validator.Update(request.body);
       const { id } = request.params;
       const data = await {{ name | pascalCase | singularize }}Service.Update(id, request.body);
 

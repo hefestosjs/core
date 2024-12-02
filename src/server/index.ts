@@ -18,7 +18,6 @@ import Views from "src/modules/views";
 export const APP = express();
 export const PORT = Number(process.env.PORT) || 3000;
 export const MAX_PORT = 3099;
-export const middleware = { register: APP.use };
 
 Logger(APP);
 Views(APP);

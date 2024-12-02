@@ -3,7 +3,7 @@
 	"module": "src/index.ts",
 	"main": "src/index.ts",
 	"type": "module",
-	"version": "1.0.4",
+	"version": "1.1.5",
 	"preferGlobal": true,
 	"license": "MIT",
 	"author": {

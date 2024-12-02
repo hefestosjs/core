@@ -1,4 +1,4 @@
-type OperationsType = {
+export type OperationsType = {
 	function: (...args: any[]) => void;
 	params: any[];
 };

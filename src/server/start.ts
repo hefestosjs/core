@@ -1,3 +1,4 @@
+import { registerMiddlewares } from "src/modules/middlewares";
 import { getPath } from "src/paths";
 import { APP, PORT } from ".";
 import TaskManager from "../modules/tasks";
@@ -8,6 +9,7 @@ import { gracefulShutdown } from "./gracefulShutdown";
 export const startServer = (port: number = PORT) => {
 	getPort(port).then((newPort) => {
 		executeOperations();
+		registerMiddlewares();
 
 		const server = APP.listen(newPort, () => {
 			const address = `http://localhost:${newPort} and process ${process.pid}`;

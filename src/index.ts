@@ -4,16 +4,17 @@ import {
 	File,
 	Supertest,
 	createSchedule,
+	middlewares,
 	redisClient,
 	renderHtml,
 } from "./modules";
-import type { ScheduledTask } from "./modules";
+import type { MiddlewareType, ScheduledTask } from "./modules";
 
 import { getPath } from "./paths";
 import { Router } from "./router";
 import { APP } from "./server";
 import { startServer } from "./server/start";
-import { useCache, useExclude, usePaginate, useRequest } from "./utils";
+import { useCache, useExclude, usePaginate } from "./utils";
 
 import type { CorsOptions } from "cors";
 import type {
@@ -29,10 +30,14 @@ import type {
 	ResponseInterface,
 } from "./interfaces/router";
 
-import { bootOperations, executeOperations } from "./server/boot";
+import {
+	type OperationsType,
+	bootOperations,
+	executeOperations,
+} from "./server/boot";
 
 // Server Functions
-export { startServer, Router, APP };
+export { startServer, Router, APP, middlewares };
 
 // Core Modules
 export {
@@ -47,7 +52,7 @@ export {
 };
 
 // Utils
-export { useRequest, useCache, usePaginate, useExclude, getPath, renderHtml };
+export { useCache, usePaginate, useExclude, getPath, renderHtml };
 
 // Interfaces
 export type {
@@ -58,6 +63,7 @@ export type {
 	AuthConfig,
 	LoggerInterface,
 	SessionTypes,
+	MiddlewareType,
 };
 
 // Server Interfaces
@@ -65,4 +71,5 @@ export type {
 	RequestInterface as Request,
 	ResponseInterface as Response,
 	NextInterface as Next,
+	OperationsType,
 };
